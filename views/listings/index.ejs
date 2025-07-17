@@ -1,0 +1,150 @@
+<% layout("/layouts/boilerplate") %>
+    
+<style>
+  #filters-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+#filters {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  flex: 1;
+  overflow: hidden;
+}
+
+.filter {
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 1rem; /* 👈 Added this for margin between filters */
+  transition: opacity 0.3s;
+}
+
+.filter i {
+  color: gray;
+  transition: color 0.3s;
+}
+
+.filter:hover i {
+  color: #fe424d;
+}
+
+.filter p {
+  font-size: 0.8rem;
+}
+
+/* Tax Toggle Adjust */
+.tax-toggle {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.tax-toggle:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Responsive Hiding Filters from the End */
+@media (max-width: 992px) {
+  .filter:nth-last-child(-n+2) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter:nth-last-child(-n+4) {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .filter:nth-last-child(-n+6) {
+    display: none;
+  }
+}
+
+.tax-info {
+  display: none;
+}
+@media (max-width: 576px) {
+  .tax-toggle label {
+    display: none;
+  }
+}
+
+</style>
+
+<div id="filters-container">
+  <div id="filters">
+    <div class="filter"><i class="fa-solid fa-fire"></i><p>Trending</p></div>
+    <div class="filter"><i class="fa-solid fa-bed"></i><p>Rooms</p></div>
+    <div class="filter"><i class="fa-solid fa-mountain-city"></i><p>Iconic Cities</p></div>
+    <div class="filter"><i class="fa-solid fa-mountain"></i><p>Mountains</p></div>
+    <div class="filter"><i class="fa-solid fa-chess-rook"></i><p>Castles</p></div>
+    <div class="filter"><i class="fa-solid fa-person-swimming"></i><p>Pools</p></div>
+    <div class="filter"><i class="fa-solid fa-campground"></i><p>Camping</p></div>
+    <div class="filter"><i class="fa-solid fa-cow"></i><p>Farms</p></div>
+    <div class="filter"><i class="fa-solid fa-snowflake"></i><p>Arctic</p></div>
+    <div class="filter"><i class="fa-solid fa-igloo"></i><p>Domes</p></div>
+    <div class="filter"><i class="fa-solid fa-sailboat"></i><p>Boats</p></div>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display Total after taxes</label>
+    </div>
+  </div>
+</div>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% for(let listing of allListings) { %>
+      <a href="/listings/<%=listing._id %>" class="listing-links">
+        <div class="card col listing-card">
+
+        <!-- <img src=" listing.image.url "  -->
+         <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://via.placeholder.com/300x200?text=No+Image' %>"
+
+          class="card-img-top" 
+          alt="listing_image"
+          style="height: 20rem">  
+
+        <div class="card-img-overlay"></div>  
+        <div class="card-body">
+            <p class="card-text">
+            <b> <%= listing.title %></b> <br>
+            &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>/night
+            <i class="tax-info"> &nbsp; &nbsp;+18% GSt</i>
+            </p>
+      </div>
+  </div>
+  </a>
+   <% } %>
+    </div>
+ 
+<script>
+  let taxswitch =document.getElementById("switchCheckDefault");
+  taxswitch.addEventListener("click",()=>{
+    let taxInfo=document.getElementsByClassName("tax-info");
+    for (info of taxInfo){
+      if (info.style.display != "inline") {
+        info.style.display="inline";
+      }else{
+        info.style.display="none";
+      }
+    }
+    
+    
+  })
+</script>

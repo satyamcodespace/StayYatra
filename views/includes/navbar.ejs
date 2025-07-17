@@ -1,0 +1,124 @@
+<style>
+  .search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0 1rem;
+  }
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 3rem;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .search-wrapper {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .mobile-flex {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 0.5rem;
+    }
+
+    .mobile-flex .navbar-brand {
+      margin-right: 0.5rem;
+    }
+
+    .mobile-flex .search-wrapper {
+      flex: 1;
+    }
+
+    .mobile-flex form {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .search-inp {
+      padding: 0.3rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .search-btn {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .mobile-flex .navbar-toggler {
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-collapse {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      margin-top: 0.5rem;
+    }
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top position-relative">
+  <div class="container-fluid">
+
+    <div class="d-md-none mobile-flex">
+      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+
+      <div class="search-wrapper">
+        <form role="search">
+          <input class="form-control search-inp" type="search" placeholder="Search destinations" />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Desktop Search -->
+    <a class="navbar-brand d-none d-md-block" href="/listings"><i class="fa-regular fa-compass"></i></a>
+
+    <div class="search-wrapper d-none d-md-block">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" />
+        <button class="btn search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i>Search
+        </button>
+      </form>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Rent Your Space</a>
+        <% if(!currUser) { %>
+          <a class="nav-link" href="/signup"><b>Sign up</b></a>
+          <a class="nav-link" href="/login"><b>Log in</b></a>
+        <% } %>
+        <% if(currUser) { %>
+          <a class="nav-link" href="/logout"><b>Log out</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
